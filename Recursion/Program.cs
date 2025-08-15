@@ -9,9 +9,15 @@ namespace Recursion
             Console.WriteLine("Hello, World!");
             //printArray(5);
             int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            Console.WriteLine(sum(arr.ToList()));
-            Console.WriteLine(maxNum(arr.ToList()));
-            Console.WriteLine(binarySearch(arr.ToList(), 6, 0, arr.Length - 1));
+            int[] arr2 = { 5, 2, 6, 9, 8 };
+            //Console.WriteLine(sum(arr.ToList()));
+            //Console.WriteLine(maxNum(arr.ToList()));
+            //Console.WriteLine(binarySearch(arr.ToList(), 6, 0, arr.Length - 1));
+            //Console.WriteLine(quickSort(arr2.ToList()));
+            foreach (int i in quickSort(arr2.ToList()))
+            {
+                Console.Write(i + " ");
+            }
             Console.ReadKey();
         }
 
@@ -92,6 +98,31 @@ namespace Recursion
                 return binarySearch(arr, key, mid + 1, right);
             else
                 return binarySearch(arr, key, left, mid - 1);
+        }
+
+        /// <summary>
+        /// Recursively sorts a list of integers using the QuickSort algorithm.
+        /// </summary>
+        /// <param name="arr">The list of integers to sort.</param>
+        /// <returns>
+        /// A new list containing the sorted integers in ascending order.
+        /// </returns>
+        public static List<int> quickSort(List<int> arr)
+        {
+            if (arr.Count < 2)
+                return arr;
+            int pivot = arr[0];
+            List<int> left = new List<int>();
+            List<int> right = new List<int>();
+            for (int i = 1; i < arr.Count; i++) // Start from index 1 to skip the pivot
+            {
+                if (arr[i] < pivot)
+                    left.Add(arr[i]);
+                else
+                    right.Add(arr[i]);
+            }
+            // Concatenate the sorted left, pivot, and sorted right
+            return quickSort(left).Concat(new List<int> { pivot }).Concat(quickSort(right)).ToList();
         }
     }
 }
