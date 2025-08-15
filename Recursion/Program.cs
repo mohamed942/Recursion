@@ -11,6 +11,7 @@ namespace Recursion
             int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             Console.WriteLine(sum(arr.ToList()));
             Console.WriteLine(maxNum(arr.ToList()));
+            Console.WriteLine(binarySearch(arr.ToList(), 6, 0, arr.Length - 1));
             Console.ReadKey();
         }
 
@@ -68,6 +69,29 @@ namespace Recursion
             }
             else
                 return Math.Max(list[0], maxNum(list[1..]));
+        }
+
+        /// <summary>
+        /// Recursively performs a binary search on a sorted list of integers to find the index of a specified key.
+        /// </summary>
+        /// <param name="arr">The sorted list of integers to search.</param>
+        /// <param name="key">The integer value to search for.</param>
+        /// <param name="left">The starting index of the search range.</param>
+        /// <param name="right">The ending index of the search range.</param>
+        /// <returns>
+        /// The index of the key in the list if found; otherwise, <c>null</c>.
+        /// </returns>
+        public static int? binarySearch(List<int> arr, int key, int left, int right)
+        {
+            if (left > right)
+                return null;
+            int mid = (left + right) / 2;
+            if (arr[mid] == key)
+                return mid;
+            else if (arr[mid] < key)
+                return binarySearch(arr, key, mid + 1, right);
+            else
+                return binarySearch(arr, key, left, mid - 1);
         }
     }
 }
